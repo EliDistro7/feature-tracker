@@ -1,0 +1,177 @@
+/* ── Tailwind base layers ── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Base resets (Rule 1: white canvas) ── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    @apply bg-surface font-sans text-ink text-base;
+    margin: 0;
+  }
+
+  /* Remove default button/input appearance */
+  button, select, input, textarea {
+    font-family: inherit;
+  }
+
+  /* Rule 2: canonical hairline divider */
+  hr {
+    @apply border-0 border-t border-hairline;
+    height: 0.5px;
+  }
+}
+
+/* ── Component layer — reusable patterns ── */
+@layer components {
+
+  /* ── SECTION LABEL (Rule 14 / Rule 18) ──
+     Uppercase muted label above sections.
+     Usage: <p class="section-label">Status</p>              */
+  .section-label {
+    @apply text-xs font-semibold text-ink-muted uppercase tracking-widest;
+  }
+
+  /* ── FLAT ROW (Rule 7) ──
+     Base for all list rows — no card, no border.
+     Usage: <div class="flat-row"> icon + text + chevron </div>  */
+  .flat-row {
+    @apply flex items-center gap-3.5 px-4 py-3 hover:bg-neutral-50
+           transition-colors duration-fast cursor-pointer select-none;
+  }
+
+  /* ── STATUS DOT (Rule 5) ──
+     Never a pill — always a 6px circle dot.
+     Usage: <span class="status-dot bg-status-open"></span>    */
+  .status-dot {
+    @apply inline-block w-1.5 h-1.5 rounded-full flex-shrink-0;
+  }
+
+  /* ── HAIRLINE (Rule 2) ──
+     Standard divider. Use indent-13 variant when below an icon.
+     Usage: <div class="hairline" />
+            <div class="hairline ml-13" />                    */
+  .hairline {
+    @apply h-px bg-hairline w-full;
+  }
+
+  /* ── INPUT (Rule 3 — controls only) ── */
+  .field-input {
+    @apply w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface
+           text-base text-ink placeholder:text-ink-faint
+           focus:outline-none focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200
+           transition-all duration-normal;
+  }
+
+  .field-label {
+    @apply block text-xs font-semibold text-ink-muted uppercase tracking-wider mb-1.5;
+  }
+
+  .field-error {
+    @apply text-xs text-danger mt-1;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-lg bg-ink text-white text-sm font-semibold
+           hover:bg-neutral-700 active:bg-neutral-900
+           transition-colors duration-fast disabled:opacity-40
+           disabled:cursor-not-allowed select-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-lg border border-border bg-canvas text-ink
+           text-sm font-semibold hover:bg-surface active:bg-neutral-100
+           transition-colors duration-fast select-none;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           px-5 py-2.5 rounded-lg bg-danger text-white text-sm font-semibold
+           hover:bg-red-600 active:bg-red-700
+           transition-colors duration-fast select-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5
+           px-3 py-1.5 rounded-md text-sm font-medium text-ink-muted
+           hover:bg-surface hover:text-ink
+           transition-colors duration-fast select-none;
+  }
+
+  /* ── FILTER CHIP (Rule 3 — interactive controls) ── */
+  .filter-chip {
+    @apply px-3.5 py-1.5 rounded-md text-sm font-semibold cursor-pointer
+           transition-all duration-normal select-none;
+  }
+
+  .filter-chip-active {
+    @apply bg-ink text-white;
+  }
+
+  .filter-chip-inactive {
+    @apply text-ink-muted hover:text-ink hover:bg-neutral-100;
+  }
+
+  /* ── FEATURE CARD (Rule 1 — white canvas, Rule 3 exception for card boundary) ── */
+  .feature-card {
+    @apply bg-canvas rounded-xl border border-border
+           hover:shadow-md hover:-translate-y-0.5
+           transition-all duration-normal cursor-default;
+  }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    @apply fixed inset-0 bg-neutral-900/50 backdrop-blur-sm
+           flex items-center justify-center z-50 p-5
+           animate-fade-in;
+  }
+
+  .modal-panel {
+    @apply bg-canvas rounded-2xl w-full max-w-modal shadow-modal
+           animate-scale-in overflow-hidden;
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between px-7 py-5 border-b border-hairline;
+  }
+
+  .modal-body {
+    @apply px-7 py-6;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    @apply fixed bottom-6 right-6 z-50 flex items-center gap-2.5
+           px-4 py-3 rounded-xl shadow-lg text-sm font-semibold
+           animate-slide-up;
+  }
+}
+
+/* ── Utilities layer ── */
+@layer utilities {
+  /* Stagger delays for list animations (Rule 11) */
+  .stagger-1  { animation-delay: 30ms; }
+  .stagger-2  { animation-delay: 60ms; }
+  .stagger-3  { animation-delay: 90ms; }
+  .stagger-4  { animation-delay: 120ms; }
+  .stagger-5  { animation-delay: 150ms; }
+  .stagger-6  { animation-delay: 180ms; }
+  .stagger-7  { animation-delay: 210ms; }
+  .stagger-8  { animation-delay: 240ms; }
+
+  /* Monospace data text */
+  .data-text { @apply font-mono tracking-tight; }
+
+  /* Indented divider (Rule 2 — when leading icon is present) */
+  .hairline-indented { @apply h-px bg-hairline w-full ml-13; }
+}
