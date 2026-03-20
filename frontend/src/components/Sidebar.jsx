@@ -7,7 +7,7 @@
 // Rule 1:  White surface, separated from main by a single hairline (right border).
 // Rule 17: Wordmark top-left — icon + text, no background box.
 
-import { useState } from 'react';
+
 
 const NAV_ITEMS = [
   {
